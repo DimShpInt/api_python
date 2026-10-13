@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/DimShpInt/api_python.git
     targetRevision: main
     path: deploy/base
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: api-python

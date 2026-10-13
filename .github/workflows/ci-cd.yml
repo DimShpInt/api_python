@@ -93,8 +93,8 @@ jobs:
 
       - name: Bump image tag in manifest
         run: |
-          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
-          sed -i "s|image: ghcr.io/.*|image: ${IMAGE}:${GITHUB_SHA}|" deploy/base/api-python/deployment.yaml
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}"
+          sed -i "s|image: .*|image: ${IMAGE}:${GITHUB_SHA}|" deploy/base/api-python/deployment.yaml
           grep "image:" deploy/base/api-python/deployment.yaml
 
       - name: Commit new image tag
