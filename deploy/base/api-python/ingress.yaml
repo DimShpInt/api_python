@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-python
+  labels:
+    app: api-python
+spec:
+  ingressClassName: cilium
+  rules:
+    - host: api-python.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-python
+                port:
+                  number: 80

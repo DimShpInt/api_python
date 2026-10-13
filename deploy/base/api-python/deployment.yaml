@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-python
+  labels: 
+    app: api-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-python
+  template:
+    metadata:
+      labels:
+        app: api-python
+    spec:
+      containers:
+        - name: api-python
+          image: ghcr.io/dimshpint/api_python:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: STORAGE_BACKEND
+              value: "redis"
+            - name: REDIS_URL
+              value: "redis://redis:6379/0"
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef: 
+                  name: api-python-secret
+                  key: api-token
+          readinessProbe:
+            httpGet: 
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: 
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests: 
+              cpu: 50m
+              memory: 64Mi
+            limits: 
+              cpu: 200m
+              memory: 128Mi
