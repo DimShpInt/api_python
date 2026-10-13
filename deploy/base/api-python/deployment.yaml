@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-python
-          image: ghcr.io/dimshpint/api_python:f2ca69755f8851319c47ced3a7f1e79af2ce226d
+          image: ghcr.io/dimshpint/api_python:c84aae01a98837a6b431b07face3ce18563b2c92
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
